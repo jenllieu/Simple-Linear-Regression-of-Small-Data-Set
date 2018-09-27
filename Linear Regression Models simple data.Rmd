@@ -1,0 +1,60 @@
+---
+title: "Linear Regression Models HW 1"
+author: "Jennifer Lieu"
+date: "9/13/2018"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r, echo = FALSE}
+set.seed(1) # Please don't remove this code!
+```
+
+The R data provided to us is listed below
+```{r setup, include=TRUE}
+# Data set manually typed out
+y <- c(199.0,205.0,196.0,200.0,218.0,220.0,215.0,223.0,237.0,234.0,235.0,230.0,250.0,248.0,253.0,246.0)
+x <- c(rep(16,4),rep(24,4),rep(32,4),rep(40,4))  
+```
+
+Estimating the Regression function $\hat{y}$ = $\hat{\beta_{0}}$ + $\hat{\beta_{1}}$*X
+
+```{r}
+meanx <- mean(x)
+meany <- mean(y)
+sxy <- sum((x - meanx)*(y - meany))
+sxx <- sum((x - meanx)*(x - meanx))
+syy <- sum((y - meany)*(y - meany))
+B1hat <- sxy/sxx
+B0hat <- meany-B1hat*meanx
+```
+
+So the estimated Regression function is:
+$\hat{y}$ = 168.6 +2.034375X
+
+```{r}
+plot(x, y, main="Scatter Plot", xlab=x, ylab=y)
+abline(lm(y~x), col="red")
+```
+
+The best point estimate of $\sigma^2$:
+```{r}
+var <- var(y)
+var
+```
+
+Calculation of sample correlation coefficient:
+
+```{r}
+r <- (sxy/15)/(((sxx/15)^.5)*((syy/15)^.5))
+r
+```
+
+Calculation of sample coefficient of determination:
+
+```{r}
+datagiven <- lm(y~x)
+summary(datagiven)$r.squared
+```
